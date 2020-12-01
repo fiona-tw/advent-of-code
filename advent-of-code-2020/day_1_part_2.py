@@ -5,7 +5,6 @@ from typing import List, Optional, Tuple
 
 DEBUG = False
 
-
 class PairDoesNotExist(Exception):
     pass
 
@@ -43,6 +42,8 @@ def test(report, total, size, depth=0):
         subreport = sorted_report[index + 1:]
         subtotal = total - current_value
         subsize = size - 1
+
+        log(depth, f"")
         log(depth, f"Looking at: {current_value}")
         log(depth, f"sub-report: {subreport}")
         log(depth, f"sub-total: {subtotal}")
@@ -68,7 +69,6 @@ def test(report, total, size, depth=0):
             continue  # ??
 
         elif subtotal < 0:
-            print(f"CONTINUE: current value ({current_value}) too large")
             continue
         elif subsize == 2:
             log(depth, f"running pair method")
@@ -87,8 +87,9 @@ def test(report, total, size, depth=0):
                 continue
             else:
                 log(depth, f"RETURN: {current_value} with result from ' test({subreport}, {subtotal}, {subsize}, {depth+1})'")
-                return current_value, test(subreport, subtotal, subsize, depth+1)
-
+                others = test(subreport, subtotal, subsize, depth+1)
+                return [current_value] + list(others)
+    raise SubsetDoesNotExist("")
 
 def read_report(file_name: str) -> List[int]:
     raw_report = open(file_name, "r").read()
@@ -96,21 +97,66 @@ def read_report(file_name: str) -> List[int]:
     return [int(row) for row in raw_report.split("\n")[:-1]]
 
 
-def run_analysis():
-    report_name = "day_1_input.txt"
-    
+def run_analysis(report_name, total, size):
     start = time()
 
     report = read_report(report_name)
-    triplet = test(report, 2020, 3)
+    values = test(report, total, size)    
     
     end = time()
     
-    print(f"found triplet: {triplet}")
+    print(f"found values: {values}")
     print(f"time take (s): {end - start}")
-    print(f"result: {prod(triplet)}")
+    print(f"result: {prod(values)}")
+    output_report_len(report_name)
+
+
+def find_more_values(report_name, total, min_size, max_size):
+    report = read_report(report_name)
+
+    start = time()
+
+    exists = {}
+    does_not_exist = []
+
+    for size in range(min_size, max_size):
+        try:
+            values = test(report, total, size)
+        except SubsetDoesNotExist:
+            does_not_exist.append(size)
+        else:
+            exists[size] = values
+    end = time()
+
+    print(f"time taken to check sizes {min_size}-{max_size}: {end - start}")
+
+    return exists, does_not_exist
+
+
+def output_report_len(report_name):
+    print(f"Report Length: {len(read_report(report_name))}")
 
 
 if __name__ == "__main__":
-    run_analysis()
+    report_name = "day_1_simple_test.txt"
+    report_name = "day_1_input.txt"
+    
+    # run_analysis(report_name, 2020, 5)
+
+    """
+    Already run for:
+
+    time taken to check sizes 2-50: 11.468764066696167
+    2020 as a sum exists for sizes: [2, 3]
+
+    time taken to check sizes 50-100: 12.999186277389526
+    2020 as a sum exists for sizes: []
+    """
+
+    min_size = 100
+    max_size = 200
+
+    exists, does_not_exist = find_more_values(report_name, 2020, min_size, max_size)
+    
+    print(f"2020 as a sum exists for sizes: {list(exists.keys())}")
 
