@@ -138,8 +138,8 @@ def output_report_len(report_name):
 
 
 if __name__ == "__main__":
-    report_name = "day_1_simple_test.txt"
-    report_name = "day_1_input.txt"
+    report_name = "simple_test.txt"
+    report_name = "input.txt"
     
     # run_analysis(report_name, 2020, 5)
 

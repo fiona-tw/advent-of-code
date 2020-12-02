@@ -37,7 +37,7 @@ def read_report(file_name: str) -> List[int]:
     ]
 
 if __name__ == "__main__":
-    report_name = "day_1_input.txt"
+    report_name = "input.txt"
     print(f"analysing report {report_name}")
     report = read_report(report_name)
     result = analyse_report(report, total=2020)
