@@ -1,22 +1,25 @@
-def decode_input(input_file):
-    return[
-            comb.split(": ") for comb in input_file.split("\n")[:-1]
+from typing import List, Dict, Tuple
+
+
+def decode_input(input_file: str) -> List[List[str]]:
+    return [
+        comb.split(": ")
+        for comb in input_file.split("\n")[:-1]
     ]
 
 
-class OldPasswordPolicy:
-    def __init__(self, raw_policy: str) -> None:
-        raw_policy.split("-")[1].split(" ")[0]
-        self.min = int(raw_policy.split("-")[0]) 
+class PasswordPolicy:
+    def __init__(self, raw_policy: str) -> str:
+        self.min = int(raw_policy.split("-")[0])
         self.max = int(raw_policy.split("-")[1].split(" ")[0])
         self.required_char = raw_policy.split("-")[1].split(" ")[1]
 
     def is_valid(self, password: str) -> bool:
         char_count = password.count(self.required_char)
-        return (self.min <= char_count <= self.max)
+        return self.min <= char_count <= self.max
 
 
-class PasswordPolicy(OldPasswordPolicy):
+class NewPasswordPolicy(PasswordPolicy):
     def __init__(self, raw_policy: str) -> None:
         super().__init__(raw_policy)
         self.index_1 = self.min - 1
@@ -29,32 +32,25 @@ class PasswordPolicy(OldPasswordPolicy):
         return char_in_pos_1 != char_in_pos_2
 
 
-def analyse_passwords(input_file_name: str):
+def analyse_passwords(input_file_name: str) -> Dict[bool, List[Tuple[str, str]]]:
     with open(input_file_name, "r") as f:
         file_contents = decode_input(f.read())
-    
+
     analysis = {
         True: [],  # To contain valid passwords
         False: [],  # To contain invalid passwords
     }
 
     for raw_policy, password in file_contents:
-        password_is_valid = PasswordPolicy(raw_policy).is_valid(password)
-        analysis[password_is_valid].append( (raw_policy, password) )
+        password_is_valid = NewPasswordPolicy(raw_policy).is_valid(password)
+        analysis[password_is_valid].append((raw_policy, password))
 
     return analysis
 
 
 if __name__ == "__main__":
-    file_name = "example_input.txt"
-    file_name = "input.txt"
-    results = analyse_passwords(file_name)
-    print(f"Results: {results}")
-    print()
-    total_no_passwords = len(results[True]) + len(results[False])
+    results = analyse_passwords("input.txt")
     no_valid_passwords = len(results[True])
+    total_no_passwords = no_valid_passwords + len(results[False])
     print(f"No. of valid passwords: {no_valid_passwords}")
     print(f"Total no. of passwords: {total_no_passwords}")
-
-
-

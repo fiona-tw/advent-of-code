@@ -2,19 +2,40 @@ import re
 from typing import Callable, Dict, Tuple
 
 
+class BasicValidator:
+
+    def __init__(self):
+        self.field_to_rules = {
+            "byr": lambda value: True,  # (Birth Year)
+            "iyr": lambda value: True,  # (Issue Year)
+            "eyr": lambda value: True,  # (Expiration Year)
+            "hgt": lambda value: True,  # (Height)
+            "hcl": lambda value: True,  # (Hair Color)
+            "ecl": lambda value: True,  # (Eye Color)
+            "pid": lambda value: True,  # (Passport ID)
+            "cid": lambda value: True,  # (Country ID)
+        }
+
+    def validate(self, field_name: str, field_value: str) -> bool:
+        try:
+            return self.field_to_rules[field_name](field_value)
+        except KeyError:
+            return False
+
+
 class PassportDataValidator:
 
     def __init__(self):
         self.field_to_rules = {
-           "byr": self.validate_four_digits(1920, 2002),  # (Birth Year)
-           "iyr": self.validate_four_digits(2010, 2020),  # (Issue Year)
-           "eyr": self.validate_four_digits(2020, 2030),  # (Expiration Year)
-           "hgt": self.validate_number_followed_by({'cm': (150, 193), 'in': (59, 76)}),  # (Height)
-           "hcl": self.validate_hair_colour,  # (Hair Color)
-           "ecl": self.validate_eye_colour,  # (Eye Color)
-           "pid": self.validate_passport_id,  # (Passport ID)
-           "cid": lambda value: True,  # (Country ID)
-        }   
+            "byr": self.validate_four_digits(1920, 2002),  # (Birth Year)
+            "iyr": self.validate_four_digits(2010, 2020),  # (Issue Year)
+            "eyr": self.validate_four_digits(2020, 2030),  # (Expiration Year)
+            "hgt": self.validate_number_followed_by({'cm': (150, 193), 'in': (59, 76)}),  # (Height)
+            "hcl": self.validate_hair_colour,  # (Hair Color)
+            "ecl": self.validate_eye_colour,  # (Eye Color)
+            "pid": self.validate_passport_id,  # (Passport ID)
+            "cid": lambda value: True,  # (Country ID)
+        }
 
     def validate(self, field_name: str, field_value: str) -> bool:
         try:
@@ -35,11 +56,12 @@ class PassportDataValidator:
                 matched_value = re.search("^[0-9]{4}$", value).group()
             except AttributeError:
                 return False
-            return min_val <= int(matched_value) <= max_val 
-        return _validate
-    
+            return min_val <= int(matched_value) <= max_val
 
-    def validate_number_followed_by(self, valid_values: Dict[str, Tuple[int, int]]) -> Callable[[str], bool]:
+        return _validate
+
+    @staticmethod
+    def validate_number_followed_by(valid_values: Dict[str, Tuple[int, int]]) -> Callable[[str], bool]:
         def _validate(value: str) -> bool:
             try:
                 number, matched_str = re.search("^([0-9]+)([a-z]+)$", value).groups()
@@ -49,22 +71,23 @@ class PassportDataValidator:
                 return False
             min_val, max_val = valid_values[matched_str]
             return min_val <= int(number) <= max_val
+
         return _validate
-    
-    
-    def validate_hair_colour(self, value: str) -> bool:
+
+    @staticmethod
+    def validate_hair_colour(value: str) -> bool:
         try:
             matched = re.search("^#([0-9]|[a-f]){6}$", value).groups()
         except AttributeError:
             return False
         return True
-    
-    
-    def validate_eye_colour(self, value: str) -> bool:
+
+    @staticmethod
+    def validate_eye_colour(value: str) -> bool:
         return value in ('amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth')
-    
-    
-    def validate_passport_id(self, value: str) -> bool:
+
+    @staticmethod
+    def validate_passport_id(value: str) -> bool:
         if len(value) != 9:
             return False
         try:
@@ -72,19 +95,19 @@ class PassportDataValidator:
         except AttributeError:
             return False
         return True
-   
+
 
 class PassportProcessor:
 
-    def __init__(self, batch_file_name: str):
+    def __init__(self, batch_file_name: str, data_validator):
         with open(batch_file_name, "r") as f:
             raw_contents = f.read()[:-1]  # -1 to stripe trailing new line
         self.passports = [
-            re.split(' |\n', passport)
+            re.split(r' |\n', passport)
             for passport in raw_contents.split("\n\n")
         ]
-        self.validator = PassportDataValidator()
-    
+        self.validator = data_validator()
+
     expected_fields = [
         "byr",  # (Birth Year)
         "iyr",  # (Issue Year)
@@ -113,7 +136,7 @@ class PassportProcessor:
             if not self.validator.validate(field_name, field_value):
                 return False
             passport_fields.add(field_name)
-        
+
         missing_fields = set(self.expected_fields) - passport_fields
         return not missing_fields or missing_fields == set(self.ok_to_miss)
 
@@ -125,9 +148,15 @@ class PassportProcessor:
         return valid_passports
 
 
-if __name__ == "__main__":
-    example_processor = PassportProcessor("example_input.txt")
-    # print(f"Valid example passports: {example_processor.process()}")
-    
-    processor = PassportProcessor("input.txt")
-    print(f"Valid passports: {processor.process()}")
+def part_1():
+    processor = PassportProcessor("input.txt", BasicValidator)
+    print(f"Part 1: no. of valid passports={processor.process()}")
+
+
+def part_2():
+    processor = PassportProcessor("input.txt", PassportDataValidator)
+    print(f"Part 2: no. of valid passports={processor.process()}")
+
+
+part_1()
+part_2()
