@@ -28,7 +28,7 @@ def get_pair_that_sums_to(report: List[int], total: int) -> Tuple[int, int]:
                 return current_value, looking_for_value
 
             # if the next value in __sorted__ list is lower than required --> no pair exists
-            if looking_for_value > report[index + 1]:
+            if looking_for_value > sorted_report[index + 1]:
                 break
 
     # if we have reached the end of the report without returning then no pair exists in given report!
