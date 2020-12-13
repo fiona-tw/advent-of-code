@@ -1,5 +1,6 @@
 .idea/
 .DS_Store
+advent-of-code-2020/example_solutions/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
