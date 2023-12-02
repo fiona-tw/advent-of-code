@@ -173,4 +173,3 @@ def sum_of_power_of_minimum_set_of_cubes_by_brute_force(raw_games: str) -> int:
         total += prod(game.max_colour_count())
 
     return total
-
