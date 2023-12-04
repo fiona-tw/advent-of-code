@@ -9,6 +9,7 @@ within `aoc_23_solutions` directory:
 ```bash
 ❯ pytest tests/day_1.py
 ❯ pytest -s tests/day_2.py::DayTwoTests
+❯ pytest -s tests/day_*
 ```
 
 ---
