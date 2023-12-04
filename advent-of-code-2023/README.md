@@ -1,8 +1,15 @@
-## How To ...
+## Current Progress:
+
+- [x] day 1
+- [x] day 2
+- [ ] day 3
+- [x] day 4
 
 ---
 
-### Run tests
+## How To ...
+
+#### Run tests
 
 within `aoc_23_solutions` directory:
 
@@ -14,7 +21,7 @@ within `aoc_23_solutions` directory:
 
 ---
 
-### Run puzzles
+#### Run puzzles
 
 within `aoc_23_solutions` directory:
 
