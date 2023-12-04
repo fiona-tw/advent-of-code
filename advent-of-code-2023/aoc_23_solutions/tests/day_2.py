@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from aoc_23_solutions.logic_day_2 import (
+from aoc_23_solutions.logic.day_2 import (
     Game,
     parse_puzzle_input,
     sum_of_game_ids_that_are_possible_with_config,
@@ -44,7 +44,7 @@ class DayTwoTests(TestCase):
         )
 
     def test_day_1_puzzle_1(self):
-        with open("../puzzle_inputs/day_2.txt") as input_file:
+        with open("puzzle_inputs/day_2.txt") as input_file:
             raw_doc = input_file.read()
 
         self.assertEqual(
@@ -53,7 +53,7 @@ class DayTwoTests(TestCase):
         )
 
     def test_day_2_puzzle_2(self):
-        with open("../puzzle_inputs/day_2.txt") as input_file:
+        with open("puzzle_inputs/day_2.txt") as input_file:
             raw_doc = input_file.read()
 
         self.assertEqual(

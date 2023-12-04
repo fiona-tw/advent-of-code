@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from aoc_23_solutions.logic_day_1 import CalibrationDocument, CalibrationValue, sum_of_calibration_values
+from aoc_23_solutions.logic.day_1 import CalibrationDocument, CalibrationValue, sum_of_calibration_values
 
 
 class DayOneTests(TestCase):
@@ -70,7 +70,7 @@ class DayOneTests(TestCase):
         )
 
     def test_day_1_puzzle(self):
-        with open("../puzzle_inputs/day_1.txt") as input_file:
+        with open("puzzle_inputs/day_1.txt") as input_file:
             raw_doc = input_file.read()
 
         self.assertEqual(
