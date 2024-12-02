@@ -1,10 +1,6 @@
 import sys
 
-from logic_day_1 import sum_of_calibration_values
-from logic_day_2 import (
-    sum_of_game_ids_that_are_possible_with_config,
-    sum_of_power_of_minimum_set_of_cubes_by_brute_force,
-)
+from logic.day_1 import get_distance_sum
 
 
 def _get_input_for_day(day: int) -> str:
@@ -13,12 +9,12 @@ def _get_input_for_day(day: int) -> str:
 
 
 def run_day_1():
-    ...
+    return get_distance_sum(_get_input_for_day(1))
 
 
 def run_for_day_x(day: int):
     try:
-        globals()[f"run_day_{day}"]()
+        return globals()[f"run_day_{day}"]()
     except KeyError:
         print(
             f"No solution implemented for day {day}.\t(`run_day_{day}` does not exist!)"
@@ -35,4 +31,4 @@ if __name__ == "__main__":
         )
     else:
         print(f"\nDay {day} solution:\n")
-        run_for_day_x(day)
+        print(run_for_day_x(day))
