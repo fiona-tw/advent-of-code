@@ -1,6 +1,6 @@
 import sys
 
-from logic.day_1 import get_distance_sum
+from logic.day_1 import get_distance_sum, get_similarity_score
 
 
 def _get_input_for_day(day: int) -> str:
@@ -9,7 +9,8 @@ def _get_input_for_day(day: int) -> str:
 
 
 def run_day_1():
-    return get_distance_sum(_get_input_for_day(1))
+    # return get_distance_sum(_get_input_for_day(1))
+    return get_similarity_score(_get_input_for_day(1))
 
 
 def run_for_day_x(day: int):
