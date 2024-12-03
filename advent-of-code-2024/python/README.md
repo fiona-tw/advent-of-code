@@ -1,10 +1,3 @@
-## Current Progress:
-
-- [ ] day 1
-- [ ] day 2
-
----
-
 ## How To ...
 
 #### Run tests
