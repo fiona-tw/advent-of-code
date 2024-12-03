@@ -27,11 +27,11 @@ within `solutions` directory:
 ```bash
 # ensure you are in the correct place to install
 ❯ pwd
-advent-of-code/advent-of-code-2024/
+advent-of-code/advent-of-code-2024/python
 
 # install as a package
 ❯ pip install -e .
 
-# to run puzzles
-❯ run_puzzle_aoc_24
+# to run puzzles, e.g. for day 1
+❯ run_puzzle_aoc_24 1
 ```

@@ -1,12 +1,12 @@
 import sys
 
-from logic.day_1 import get_similarity_score
-from logic.day_2 import get_count_of_safe_reports
-from logic.day_3 import scan_corrupted_memory
+from solutions.logic.day_1 import get_similarity_score
+from solutions.logic.day_2 import get_count_of_safe_reports
+from solutions.logic.day_3 import scan_corrupted_memory
 
 
 def _get_input_for_day(day: int) -> str:
-    with open(f"puzzle_inputs/day_{day}.txt") as file:
+    with open(f"solutions/puzzle_inputs/day_{day}.txt") as file:
         return file.read()
 
 
@@ -46,7 +46,7 @@ def run_for_day_x(day: int):
         )
 
 
-if __name__ == "__main__":
+def run():
     day = sys.argv[1]  # i.e. 1 or 2 etc.
     try:
         day = int(day)
@@ -57,3 +57,7 @@ if __name__ == "__main__":
     else:
         print(f"\nDay {day} solution:\n")
         print(run_for_day_x(day))
+
+
+if __name__ == "__main__":
+    run()
