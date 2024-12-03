@@ -2,6 +2,7 @@ import sys
 
 from logic.day_1 import get_similarity_score
 from logic.day_2 import get_count_of_safe_reports
+from logic.day_3 import scan_corrupted_memory
 
 
 def _get_input_for_day(day: int) -> str:
@@ -25,6 +26,15 @@ def run_day_2():
         Part 2: 318
     """
     return get_count_of_safe_reports(_get_input_for_day(2))
+
+
+def run_day_3():
+    """
+    Answers:
+        Part 1: 166905464
+        Part 2: 72948684
+    """
+    return scan_corrupted_memory(_get_input_for_day(3))
 
 
 def run_for_day_x(day: int):
