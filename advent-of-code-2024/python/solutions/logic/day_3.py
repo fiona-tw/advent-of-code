@@ -2,7 +2,9 @@ import re
 
 
 def scan_corrupted_memory_without_instructions(puzzle_input: str) -> int:
-    matches = re.findall(r"mul\((?P<first_digit>\d{1,3}),(?P<second_digit>\d{1,3})\)", puzzle_input)
+    matches = re.findall(
+        r"mul\((?P<first_digit>\d{1,3}),(?P<second_digit>\d{1,3})\)", puzzle_input
+    )
 
     total = 0
     for first_digit, second_digit in matches:

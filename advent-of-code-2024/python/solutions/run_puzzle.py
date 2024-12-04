@@ -3,6 +3,7 @@ import sys
 from solutions.logic.day_1 import get_similarity_score
 from solutions.logic.day_2 import get_count_of_safe_reports
 from solutions.logic.day_3 import scan_corrupted_memory
+from solutions.logic.day_4 import get_x_mas_count
 
 
 def _get_input_for_day(day: int) -> str:
@@ -18,6 +19,7 @@ def run_day_1():
     """
     # return get_distance_sum(_get_input_for_day(1))
     return get_similarity_score(_get_input_for_day(1))
+
 
 def run_day_2():
     """
@@ -35,6 +37,16 @@ def run_day_3():
         Part 2: 72948684
     """
     return scan_corrupted_memory(_get_input_for_day(3))
+
+
+def run_day_4():
+    """
+    Answers:
+        Part 1: 2530
+        Part 2: 1921
+    """
+    # return get_xmas_count(_get_input_for_day(4))
+    return get_x_mas_count(_get_input_for_day(4))
 
 
 def run_for_day_x(day: int):
