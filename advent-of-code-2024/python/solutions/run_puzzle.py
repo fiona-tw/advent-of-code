@@ -4,6 +4,7 @@ from solutions.logic.day_1 import get_similarity_score
 from solutions.logic.day_2 import get_count_of_safe_reports
 from solutions.logic.day_3 import scan_corrupted_memory
 from solutions.logic.day_4 import get_x_mas_count
+from solutions.logic.day_5 import get_sum_of_middle_pages_from_correctly_ordered_updates
 
 
 def _get_input_for_day(day: int) -> str:
@@ -47,6 +48,15 @@ def run_day_4():
     """
     # return get_xmas_count(_get_input_for_day(4))
     return get_x_mas_count(_get_input_for_day(4))
+
+
+def run_day_5():
+    """
+    Answers:
+        Part 1: 6384
+        Part 2:
+    """
+    return get_sum_of_middle_pages_from_correctly_ordered_updates(_get_input_for_day(5))
 
 
 def run_for_day_x(day: int):
