@@ -5,6 +5,7 @@ from solutions.logic.day_2 import get_count_of_safe_reports
 from solutions.logic.day_3 import scan_corrupted_memory
 from solutions.logic.day_4 import get_x_mas_count
 from solutions.logic.day_5 import get_sum_of_middle_pages_from_correctly_ordered_incorrect_updates
+from solutions.logic.day_6 import count_guard_positions
 
 
 def _get_input_for_day(day: int) -> str:
@@ -57,6 +58,15 @@ def run_day_5():
         Part 2: 5353
     """
     return get_sum_of_middle_pages_from_correctly_ordered_incorrect_updates(_get_input_for_day(5))
+
+
+def run_day_6():
+    """
+    Answers:
+        Part 1: 4977
+        Part 2:
+    """
+    return count_guard_positions(_get_input_for_day(6))
 
 
 def run_for_day_x(day: int):
