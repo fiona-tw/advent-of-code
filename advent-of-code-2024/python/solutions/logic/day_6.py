@@ -33,6 +33,7 @@ class GuardPosition:
     y: index of the line
     0, 0 means top left
     """
+
     x: int
     y: int
     heading: GuardHeading
@@ -43,7 +44,6 @@ class LoopDetected(Exception):
 
 
 class Map:
-
     def __init__(self, puzzle_input: str) -> None:
         self.raw_input = puzzle_input
         self.lines = [list(line) for line in self.raw_input.split("\n")]
@@ -77,7 +77,7 @@ class Map:
         pattern = self.guard_rotations[-4:]
         previous_rotations = self.guard_rotations[:-4]
         for i in range(len(previous_rotations)):
-            if previous_rotations[i: i + 4] == pattern:
+            if previous_rotations[i : i + 4] == pattern:
                 return True
 
     def rotate_guard(self):
@@ -177,7 +177,9 @@ class Map:
             case GuardHeading.RIGHT:
                 self.move_right(guard_position)
             case _:
-                raise ValueError(f"Don't know how to move guard in heading {guard_position.heading}")
+                raise ValueError(
+                    f"Don't know how to move guard in heading {guard_position.heading}"
+                )
 
         if self.guard_moves_out_of_map():
             return

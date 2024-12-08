@@ -54,7 +54,9 @@ def swap_values(update, page, index_to_swap_with):
 def get_earliest_page(update, page, pages_must_come_after) -> str | None:
     if pages_to_follow := pages_must_come_after.get(page):
         if common_pages := set.intersection(set(update), set(pages_to_follow)):
-            closest_page_to_follow_index = min(update.index(page_to_follow) for page_to_follow in common_pages)
+            closest_page_to_follow_index = min(
+                update.index(page_to_follow) for page_to_follow in common_pages
+            )
             if closest_page_to_follow_index < update.index(page):
                 # only swap if needed, if page comes after the closest page to follow
                 return closest_page_to_follow_index
@@ -76,8 +78,9 @@ def sort_recursive(update, page, pages_must_come_after, i: int = 0):
     return update
 
 
-def get_corrected_update(update: list[str], rules: list[list[str]], i: int = 0) -> list[
-    str]:
+def get_corrected_update(
+    update: list[str], rules: list[list[str]], i: int = 0
+) -> list[str]:
     pages_must_come_after = defaultdict(set)
     pages_must_come_before = defaultdict(set)
     for rule in rules:
@@ -104,13 +107,13 @@ def get_violations(rules: list[list[str]], update: list[str]):
     return violations
 
 
-def get_corrected_invalid_updates(rules: list[list[str]], updates: list[list[str]]) -> list[list[str]]:
+def get_corrected_invalid_updates(
+    rules: list[list[str]], updates: list[list[str]]
+) -> list[list[str]]:
     corrected_invalid_updates = []
     for update in updates:
         if get_violations(rules, update):
-            corrected_invalid_updates.append(
-                get_corrected_update(update, rules)
-            )
+            corrected_invalid_updates.append(get_corrected_update(update, rules))
 
     return corrected_invalid_updates
 

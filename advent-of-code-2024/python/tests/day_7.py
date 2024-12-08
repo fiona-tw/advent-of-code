@@ -13,6 +13,7 @@ def test():
 292: 11 6 16 20"""
     assert get_calibration_result(puzzle_input) == 3749
 
+
 def test_part_2():
     puzzle_input = """190: 10 19
 3267: 81 40 27

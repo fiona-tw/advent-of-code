@@ -105,9 +105,16 @@ def test_part_2_example():
 75,97,47,61,53
 61,13,29
 97,13,75,29,47"""
-    assert get_sum_of_middle_pages_from_correctly_ordered_incorrect_updates(puzzle_input) == 123
+    assert (
+        get_sum_of_middle_pages_from_correctly_ordered_incorrect_updates(puzzle_input)
+        == 123
+    )
+
 
 def test_part_2_real_input():
     with open("solutions/puzzle_inputs/day_5.txt") as f:
         puzzle_input = f.read()
-    assert get_sum_of_middle_pages_from_correctly_ordered_incorrect_updates(puzzle_input) == 5353
+    assert (
+        get_sum_of_middle_pages_from_correctly_ordered_incorrect_updates(puzzle_input)
+        == 5353
+    )
