@@ -76,7 +76,7 @@ def run_day_7():
         Part 1: 20281182715321
         Part 2:
     """
-    return get_calibration_result(_get_input_for_day(7))
+    return get_calibration_result(_get_input_for_day(7), third_operator=True)
 
 
 def run_for_day_x(day: int):
