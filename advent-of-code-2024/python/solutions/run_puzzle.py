@@ -97,7 +97,10 @@ def run_day_8():
 def run_day_9():
     """
     Answers:
-        Part 1: 88960367801 is too low ....
+        Part 1:
+            wrong attempts:
+                88960367801 is too low ....
+                5473041749258 just wrong
         Part 2:
     """
     return get_checksum(_get_input_for_day(9))
