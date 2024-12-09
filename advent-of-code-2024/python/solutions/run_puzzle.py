@@ -10,6 +10,7 @@ from solutions.logic.day_5 import (
 from solutions.logic.day_6 import count_number_of_places_for_obstruction
 from solutions.logic.day_7 import get_calibration_result
 from solutions.logic.day_8 import get_number_of_antinodes
+from solutions.logic.day_9 import get_checksum
 
 
 def _get_input_for_day(day: int) -> str:
@@ -91,6 +92,15 @@ def run_day_8():
         Part 2: 962
     """
     return get_number_of_antinodes(_get_input_for_day(8), include_harmonics=True)
+
+
+def run_day_9():
+    """
+    Answers:
+        Part 1: 88960367801 is too low ....
+        Part 2:
+    """
+    return get_checksum(_get_input_for_day(9))
 
 
 def run_for_day_x(day: int):
